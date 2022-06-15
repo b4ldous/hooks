@@ -14,26 +14,31 @@ const initialList = [
 ];
 
 const App = () => {
-  const [list, setList] = React.useState(initialList);
-  const [name, setName] = React.useState("");
+  const [listData, setListData] = React.useState({
+    list: initialList,
+    isShowList: true,
+  });
+  const [name, setName] = React.useState('');
 
   function handleChange(event) {
-    // track input field's state
     setName(event.target.value);
   }
 
   function handleAdd() {
-    // add item
-    const newList = list.concat({ name, id: uuidv4() });
+    const newList = listData.list.concat({
+      name,
+      id: uuidv4(),
+    });
 
-    setList(newList);
-    setName("");
+    setListData({ ...listData, list: newList });
+
+    setName('');
   }
   return (
     <div>
       <AddItem name={name} onChange={handleChange} onAdd={handleAdd} />
 
-      <List list={list} />
+      {listData.isShowList && <List list={listData.list} />}
     
     </div>
   );
