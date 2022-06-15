@@ -1,5 +1,7 @@
 import React from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
+import List from './List';
+import AddItem from "./AddItem";
 const initialList = [
   {
     id: "a",
@@ -13,7 +15,7 @@ const initialList = [
 
 const App = () => {
   const [list, setList] = React.useState(initialList);
-  const [name, setName] = React.useState('');
+  const [name, setName] = React.useState("");
 
   function handleChange(event) {
     // track input field's state
@@ -25,24 +27,35 @@ const App = () => {
     const newList = list.concat({ name, id: uuidv4() });
 
     setList(newList);
-    setName('');
+    setName("");
   }
   return (
     <div>
-      <div>
-        <input type="text" value={name} onChange={handleChange} />
-        <button type="button" onClick={handleAdd}>
-          Add
-        </button>
-      </div>
+      <AddItem name={name} onChange={handleChange} onAdd={handleAdd} />
 
-      <ul>
-        {list.map((item) => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
+      <List list={list} />
+    
     </div>
   );
 };
 
+
+  /*const AddItem = ({ name, onChange, onAdd }) => (
+  <div>
+    <input type="text" value={name} onChange={onChange} />
+    <button type="button" onClick={onAdd}>
+      Add
+    </button>
+  </div>); */
+
+/*
+const List = ({ list }) => (
+  <ul>
+    {list.map((item) => (
+      <li key={item.id}>{item.name}</li>
+    ))}
+  </ul>
+
+   
+);*/
 export default App;
